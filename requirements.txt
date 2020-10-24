@@ -1,0 +1,13 @@
+black==19.10b0
+colorama==0.4.3
+flake8==3.8.3
+git+https://github.com/facebookresearch/visdom
+hypothesis == 4.38
+networkx==2.4
+numpy == 1.19.1
+numba == 0.49
+matplotlib==3.3.0
+pep8-naming==0.11.1
+pydot==1.4.1
+pytest == 6.0.1
+pytest-runner == 5.2
