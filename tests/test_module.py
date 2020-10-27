@@ -1,26 +1,26 @@
-import minitorch
+import jtorch
 import pytest
 
 VAL = 40
 
 
-class Module1(minitorch.Module):
+class Module1(jtorch.Module):
     def __init__(self):
         super().__init__()
         self.module_a = Module2(5)
         self.module_b = Module2(10)
-        self.parameter_a = minitorch.Parameter(VAL)
+        self.parameter_a = jtorch.Parameter(VAL)
 
 
 VAL_A = 50
 VAL_B = 100
 
 
-class Module2(minitorch.Module):
+class Module2(jtorch.Module):
     def __init__(self, extra=0):
         super().__init__()
-        self.parameter_a = minitorch.Parameter(VAL_A)
-        self.parameter_b = minitorch.Parameter(VAL_B)
+        self.parameter_a = jtorch.Parameter(VAL_A)
+        self.parameter_b = jtorch.Parameter(VAL_B)
         self.non_parameter = 10
         for i in range(extra):
             self.add_parameter(f"extra_parameter_{i}", None)
@@ -70,30 +70,30 @@ def test_stacked_module():
     assert named_parameters["module_b.parameter_b"].value == VAL_B
 
 
-class ModuleA1(minitorch.Module):
+class ModuleA1(jtorch.Module):
     def __init__(self):
         super().__init__()
-        self.p1 = minitorch.Parameter(5)
+        self.p1 = jtorch.Parameter(5)
         self.a = ModuleA2()
         self.b = ModuleA3()
 
 
-class ModuleA2(minitorch.Module):
+class ModuleA2(jtorch.Module):
     def __init__(self):
         super().__init__()
-        self.p2 = minitorch.Parameter(10)
+        self.p2 = jtorch.Parameter(10)
 
 
-class ModuleA3(minitorch.Module):
+class ModuleA3(jtorch.Module):
     def __init__(self):
         super().__init__()
         self.c = ModuleA4()
 
 
-class ModuleA4(minitorch.Module):
+class ModuleA4(jtorch.Module):
     def __init__(self):
         super().__init__()
-        self.p3 = minitorch.Parameter(15)
+        self.p3 = jtorch.Parameter(15)
 
 
 @pytest.mark.task0_4

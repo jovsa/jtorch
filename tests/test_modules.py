@@ -1,24 +1,24 @@
-import minitorch
+import jtorch
 from hypothesis import given
 from hypothesis.strategies import integers, lists
 from .strategies import scalars
 import random
 
 
-class Network(minitorch.Module):
+class Network(jtorch.Module):
     def __init__(self):
         super().__init__()
         self.layer = ScalarLinear(2, 1)
 
 
-class Network2(minitorch.Module):
+class Network2(jtorch.Module):
     def __init__(self):
         super().__init__()
         self.layer1 = ScalarLinear(2, 2)
         self.layer2 = ScalarLinear(2, 1)
 
 
-class ScalarLinear(minitorch.Module):
+class ScalarLinear(jtorch.Module):
     def __init__(self, in_size, out_size):
         super().__init__()
         self.weights = []
@@ -28,13 +28,13 @@ class ScalarLinear(minitorch.Module):
             for j in range(out_size):
                 self.weights[i].append(
                     self.add_parameter(
-                        f"weight_{i}_{j}", minitorch.Scalar(2 * (random.random() - 0.5))
+                        f"weight_{i}_{j}", jtorch.Scalar(2 * (random.random() - 0.5))
                     )
                 )
         for j in range(out_size):
             self.bias.append(
                 self.add_parameter(
-                    f"bias_{j}", minitorch.Scalar(2 * (random.random() - 0.5))
+                    f"bias_{j}", jtorch.Scalar(2 * (random.random() - 0.5))
                 )
             )
 
@@ -66,7 +66,7 @@ def test_linear(inputs, out_size):
 #         model.layer1.bias[1].update(b2)
 #         return model.forward([x1, x2])
 
-#     minitorch.derivative_check(check, *(inputs + bias))
+#     jtorch.derivative_check(check, *(inputs + bias))
 
 
 def test_nn_size():
@@ -80,7 +80,7 @@ def test_nn_size():
     assert model.layer1.weights[0][0].value.data != 0
 
     for p in model.parameters():
-        p.update(minitorch.Scalar(0))
+        p.update(jtorch.Scalar(0))
 
     assert model.layer2.bias[0].value.data == 0
     assert model.layer1.bias[0].value.data == 0
