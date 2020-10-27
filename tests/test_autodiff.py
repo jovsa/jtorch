@@ -1,9 +1,9 @@
-import minitorch
+import jtorch
 import pytest
-from minitorch import History, Variable
+from jtorch import History, Variable
 
 
-class Temp(minitorch.FunctionBase):
+class Temp(jtorch.FunctionBase):
     "Implements additions"
 
     @staticmethod
@@ -11,7 +11,7 @@ class Temp(minitorch.FunctionBase):
         return d_output, d_output
 
 
-class Temp2(minitorch.FunctionBase):
+class Temp2(jtorch.FunctionBase):
     "Implements additions"
 
     @staticmethod
@@ -22,21 +22,21 @@ class Temp2(minitorch.FunctionBase):
 
 @pytest.mark.task1_3
 def test_chain_rule():
-    constant = minitorch.Variable(None)
+    constant = jtorch.Variable(None)
     for variable_with_deriv in Temp.chain_rule(
         ctx=None, inputs=[constant, constant], d_output=5
     ):
         assert False
 
-    var = minitorch.Variable(History())
-    constant = minitorch.Variable(None)
+    var = jtorch.Variable(History())
+    constant = jtorch.Variable(None)
     for variable_with_deriv in Temp.chain_rule(
         ctx=None, inputs=[var, constant], d_output=5
     ):
         assert variable_with_deriv.variable.name == var.name
         assert variable_with_deriv.deriv == 5
 
-    ctx = minitorch.Context()
+    ctx = jtorch.Context()
     ctx.save_for_backward(10)
     for variable_with_deriv in Temp2.chain_rule(
         ctx=ctx, inputs=[constant, var], d_output=5
@@ -44,7 +44,7 @@ def test_chain_rule():
         assert variable_with_deriv.variable.name == var.name
         assert variable_with_deriv.deriv == 5 * 10
 
-    ctx = minitorch.Context()
+    ctx = jtorch.Context()
     ctx.save_for_backward(10)
     for variable_with_deriv in Temp2.chain_rule(
         ctx=ctx, inputs=[var, constant], d_output=5

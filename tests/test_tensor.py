@@ -1,4 +1,4 @@
-import minitorch
+import jtorch
 import pytest
 from hypothesis import given
 from hypothesis.strategies import floats, lists
@@ -35,7 +35,7 @@ two_arg = [
 
 @given(lists(floats(allow_nan=False)))
 def test_create(t1):
-    t2 = minitorch.tensor(t1)
+    t2 = jtorch.tensor(t1)
     for i in range(len(t1)):
         assert t1[i] == t2[i]
 
@@ -46,7 +46,7 @@ def test_create(t1):
 def test_one_args(fn, t1):
     t2 = fn[1](t1)
     for ind in t2._tensor.indices():
-        assert_close(t2[ind], fn[1](minitorch.Scalar(t1[ind])).data)
+        assert_close(t2[ind], fn[1](jtorch.Scalar(t1[ind])).data)
 
 
 @given(shaped_tensors(2))
@@ -57,7 +57,7 @@ def test_two_args(fn, ts):
     t3 = fn[1](t1, t2)
     for ind in t3._tensor.indices():
         assert (
-            t3[ind] == fn[1](minitorch.Scalar(t1[ind]), minitorch.Scalar(t2[ind])).data
+            t3[ind] == fn[1](jtorch.Scalar(t1[ind]), jtorch.Scalar(t2[ind])).data
         )
 
 
@@ -65,14 +65,14 @@ def test_two_args(fn, ts):
 @pytest.mark.task2_3
 @pytest.mark.parametrize("fn", one_arg)
 def test_one_derivative(fn, t1):
-    minitorch.grad_check(fn[1], t1)
+    jtorch.grad_check(fn[1], t1)
 
 
 @given(tensors())
 @pytest.mark.task2_3
 @pytest.mark.parametrize("fn", reduce)
 def test_reduce(fn, t1):
-    minitorch.grad_check(fn[1], t1)
+    jtorch.grad_check(fn[1], t1)
 
 
 @given(shaped_tensors(2))
@@ -80,7 +80,7 @@ def test_reduce(fn, t1):
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_grad(fn, ts):
     t1, t2 = ts
-    minitorch.grad_check(fn[1], t1, t2)
+    jtorch.grad_check(fn[1], t1, t2)
 
 
 @given(shaped_tensors(2))
@@ -88,15 +88,15 @@ def test_two_grad(fn, ts):
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_grad_broadcast(fn, ts):
     t1, t2 = ts
-    minitorch.grad_check(fn[1], t1, t2)
+    jtorch.grad_check(fn[1], t1, t2)
 
     # broadcast check
-    minitorch.grad_check(fn[1], t1.sum(0), t2)
-    minitorch.grad_check(fn[1], t1, t2.sum(0))
+    jtorch.grad_check(fn[1], t1.sum(0), t2)
+    jtorch.grad_check(fn[1], t1, t2.sum(0))
 
 
 def test_fromlist():
-    t = minitorch.tensor_fromlist([[2, 3, 4], [4, 5, 7]])
+    t = jtorch.tensor_fromlist([[2, 3, 4], [4, 5, 7]])
     t.shape == (2, 3)
-    t = minitorch.tensor_fromlist([[[2, 3, 4], [4, 5, 7]]])
+    t = jtorch.tensor_fromlist([[[2, 3, 4], [4, 5, 7]]])
     t.shape == (1, 2, 3)

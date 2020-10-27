@@ -1,11 +1,11 @@
-import minitorch
+import jtorch
 import pytest
 from hypothesis import given
 from .strategies import tensors, shaped_tensors, assert_close
 from .test_tensor import one_arg, two_arg, reduce
 
 # TESTS are the same as test_tensor with different backend
-FastTensorFunctions = minitorch.make_tensor_functions(minitorch.FastOps)
+FastTensorFunctions = jtorch.make_tensor_functions(jtorch.FastOps)
 
 
 @given(tensors(backend=FastTensorFunctions))
@@ -14,7 +14,7 @@ FastTensorFunctions = minitorch.make_tensor_functions(minitorch.FastOps)
 def test_one_args(fn, t1):
     t2 = fn[1](t1)
     for ind in t2._tensor.indices():
-        assert_close(t2[ind], fn[1](minitorch.Scalar(t1[ind])).data)
+        assert_close(t2[ind], fn[1](jtorch.Scalar(t1[ind])).data)
 
 
 @given(shaped_tensors(2, backend=FastTensorFunctions))
@@ -25,7 +25,7 @@ def test_two_args(fn, ts):
     t3 = fn[1](t1, t2)
     for ind in t3._tensor.indices():
         assert (
-            t3[ind] == fn[1](minitorch.Scalar(t1[ind]), minitorch.Scalar(t2[ind])).data
+            t3[ind] == fn[1](jtorch.Scalar(t1[ind]), jtorch.Scalar(t2[ind])).data
         )
 
 
@@ -33,14 +33,14 @@ def test_two_args(fn, ts):
 @pytest.mark.task3_2
 @pytest.mark.parametrize("fn", one_arg)
 def test_one_derivative(fn, t1):
-    minitorch.grad_check(fn[1], t1)
+    jtorch.grad_check(fn[1], t1)
 
 
 @given(tensors(backend=FastTensorFunctions))
 @pytest.mark.task3_2
 @pytest.mark.parametrize("fn", reduce)
 def test_reduce(fn, t1):
-    minitorch.grad_check(fn[1], t1)
+    jtorch.grad_check(fn[1], t1)
 
 
 @given(shaped_tensors(2, backend=FastTensorFunctions))
@@ -48,7 +48,7 @@ def test_reduce(fn, t1):
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_grad(fn, ts):
     t1, t2 = ts
-    minitorch.grad_check(fn[1], t1, t2)
+    jtorch.grad_check(fn[1], t1, t2)
 
 
 @given(shaped_tensors(2, backend=FastTensorFunctions))
@@ -56,8 +56,8 @@ def test_two_grad(fn, ts):
 @pytest.mark.parametrize("fn", two_arg)
 def test_two_grad_broadcast(fn, ts):
     t1, t2 = ts
-    minitorch.grad_check(fn[1], t1, t2)
+    jtorch.grad_check(fn[1], t1, t2)
 
     # broadcast check
-    minitorch.grad_check(fn[1], t1.sum(0), t2)
-    minitorch.grad_check(fn[1], t1, t2.sum(0))
+    jtorch.grad_check(fn[1], t1.sum(0), t2)
+    jtorch.grad_check(fn[1], t1, t2.sum(0))

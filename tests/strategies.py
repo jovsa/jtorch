@@ -1,4 +1,4 @@
-import minitorch
+import jtorch
 from hypothesis import settings
 from hypothesis.strategies import composite, floats, integers, lists
 import numpy as np
@@ -14,13 +14,13 @@ small_floats = floats(min_value=-100, max_value=100)
 @composite
 def vals(draw, size, number):
     pts = draw(lists(number, min_size=size, max_size=size,))
-    return minitorch.tensor(pts)
+    return jtorch.tensor(pts)
 
 
 @composite
 def scalars(draw, min_value=-100000, max_value=100000):
     val = draw(floats(min_value=min_value, max_value=max_value))
-    return minitorch.Scalar(val)
+    return jtorch.Scalar(val)
 
 
 @composite
@@ -33,9 +33,9 @@ def shapes(draw):
 def tensor_data(draw, numbers=floats(), shape=None):
     if shape is None:
         shape = draw(shapes())
-    size = int(minitorch.prod(shape))
+    size = int(jtorch.prod(shape))
     data = draw(lists(numbers, min_size=size, max_size=size))
-    return minitorch.TensorData(data, shape)
+    return jtorch.TensorData(data, shape)
 
 
 @composite
@@ -51,7 +51,7 @@ def tensors(
     shape=None,
 ):
     td = draw(tensor_data(numbers, shape=shape))
-    return minitorch.Tensor(td, backend=backend)
+    return jtorch.Tensor(td, backend=backend)
 
 
 @composite
@@ -66,7 +66,7 @@ def shaped_tensors(
     for i in range(n):
         data = draw(lists(numbers, min_size=td.size, max_size=td.size))
         values.append(
-            minitorch.Tensor(minitorch.TensorData(data, td.shape), backend=backend)
+            jtorch.Tensor(jtorch.TensorData(data, td.shape), backend=backend)
         )
     return values
 
@@ -82,9 +82,9 @@ def matmul_tensors(
     l2 = (j, k)
     values = []
     for shape in [l1, l2]:
-        size = int(minitorch.prod(shape))
+        size = int(jtorch.prod(shape))
         data = draw(lists(numbers, min_size=size, max_size=size))
-        values.append(minitorch.Tensor(minitorch.TensorData(data, shape)))
+        values.append(jtorch.Tensor(jtorch.TensorData(data, shape)))
     return values
 
 

@@ -1,5 +1,5 @@
-import minitorch
-from minitorch import operators
+import jtorch
+from jtorch import operators
 from hypothesis import given
 from hypothesis.strategies import lists
 from .strategies import small_floats, assert_close
@@ -30,7 +30,7 @@ def test_relu(a):
 @pytest.mark.task0_2
 def test_symmetric():
     """
-    Write a test that ensures that :func:`minitorch.operators.mul` is symmetric, i.e.
+    Write a test that ensures that :func:`jtorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
     None
