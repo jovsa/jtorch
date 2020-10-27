@@ -28,25 +28,28 @@ def test_relu(a):
 
 
 @pytest.mark.task0_2
-def test_symmetric():
+@given(small_floats, small_floats)
+def test_symmetric(x, y):
     """
     Write a test that ensures that :func:`jtorch.operators.mul` is symmetric, i.e.
     gives the same value regardless of the order of its input.
     """
-    None
-    # ASSIGN0.2
-    # END ASSIGN0.2
+
+    assert operators.mul(x, y) == operators.mul(y, x)
+    assert operators.add(x, y) == operators.add(y, x)
 
 
 @pytest.mark.task0_2
-def test_distribute():
+@given(small_floats, small_floats, small_floats)
+def test_distribute(x, y, z):
     r"""
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    None
-    # ASSIGN0.2
-    # END ASSIGN0.2
+    assert_close(
+        operators.mul(z, operators.add(x, y)),
+        operators.add(operators.mul(z, x), operators.mul(z, y)),
+    )
 
 
 @pytest.mark.task0_2
