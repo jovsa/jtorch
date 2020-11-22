@@ -11,7 +11,7 @@ import visdom
 
 ## Create an autodiff expression here.
 def expression():
-    x = minitorch.Scalar(10, name="x")
+    x = jtorch.Scalar(10, name="x")
     y = (x + 10.0) * 20
     y.name = "y"
     return y
@@ -24,7 +24,7 @@ class GraphBuilder:
         self.intermediates = {}
 
     def get_name(self, x):
-        if not isinstance(x, minitorch.Variable):
+        if not isinstance(x, jtorch.Variable):
             return "constant %s" % (x,)
         elif len(x.name) > 15:
             if x.name in self.intermediates:
@@ -48,7 +48,7 @@ class GraphBuilder:
 
             if cur.history is None:
                 continue
-            elif minitorch.is_leaf(cur):
+            elif jtorch.is_leaf(cur):
                 continue
             else:
                 op = "%s (Op %d)" % (cur.history.last_fn.__name__, self.op_id)
@@ -59,7 +59,7 @@ class GraphBuilder:
                     G.add_edge(self.get_name(input), op)
 
                 for input in cur.history.inputs:
-                    if not isinstance(input, minitorch.Variable):
+                    if not isinstance(input, jtorch.Variable):
                         continue
 
                     seen = False

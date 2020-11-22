@@ -1,5 +1,5 @@
 """
-Be sure you have minitorch installed in you Virtual Env.
+Be sure you have jtorch installed in you Virtual Env.
 >>> pip install -Ue .
 """
 import jtorch
@@ -13,7 +13,7 @@ HIDDEN = 2
 RATE = 0.5
 
 
-class Network(minitorch.Module):
+class Network(jtorch.Module):
     def __init__(self):
         super().__init__()
 
@@ -28,7 +28,7 @@ class Network(minitorch.Module):
         return self.layer3.forward(h)[0].sigmoid()
 
 
-class Linear(minitorch.Module):
+class Linear(jtorch.Module):
     def __init__(self, in_size, out_size):
         super().__init__()
         self.weights = []
@@ -38,13 +38,13 @@ class Linear(minitorch.Module):
             for j in range(out_size):
                 self.weights[i].append(
                     self.add_parameter(
-                        f"weight_{i}_{j}", minitorch.Scalar(2 * (random.random() - 0.5))
+                        f"weight_{i}_{j}", jtorch.Scalar(2 * (random.random() - 0.5))
                     )
                 )
         for j in range(out_size):
             self.bias.append(
                 self.add_parameter(
-                    f"bias_{j}", minitorch.Scalar(2 * (random.random() - 0.5))
+                    f"bias_{j}", jtorch.Scalar(2 * (random.random() - 0.5))
                 )
             )
 
@@ -67,8 +67,8 @@ for epoch in range(500):
     for i in range(data.N):
         x_1, x_2 = data.X[i]
         y = data.y[i]
-        x_1 = minitorch.Scalar(x_1)
-        x_2 = minitorch.Scalar(x_2)
+        x_1 = jtorch.Scalar(x_1)
+        x_2 = jtorch.Scalar(x_2)
         out = model.forward((x_1, x_2))
 
         if y == 1:
@@ -87,7 +87,7 @@ for epoch in range(500):
     for p in model.parameters():
         if p.value.derivative is not None:
             p.update(
-                minitorch.Scalar(p.value.data - RATE * (p.value.derivative / data.N))
+                jtorch.Scalar(p.value.data - RATE * (p.value.derivative / data.N))
             )
 
     # Logging
@@ -97,8 +97,8 @@ for epoch in range(500):
         data.graph(
             im,
             lambda x: model.forward(
-                (minitorch.Scalar(x[0]), minitorch.Scalar(x[1]))
+                (jtorch.Scalar(x[0]), jtorch.Scalar(x[1]))
             ).data,
         )
-        plt.plot(losses, c="blue")
-        data.vis.matplot(plt, win="loss")
+        # plt.plot(losses, c="blue")
+        # data.vis.matplot(plt, win="loss")
