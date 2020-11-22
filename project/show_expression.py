@@ -5,7 +5,7 @@ Be sure you have the extra requirements installed.
 
 import requests
 import networkx as nx
-import minitorch
+import jtorch
 import visdom
 
 

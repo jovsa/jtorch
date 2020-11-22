@@ -2,7 +2,7 @@
 Be sure you have minitorch installed in you Virtual Env.
 >>> pip install -Ue .
 """
-import minitorch
+import jtorch
 import matplotlib.pyplot as plt
 import random
 import datasets
