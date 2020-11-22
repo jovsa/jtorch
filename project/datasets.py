@@ -25,14 +25,14 @@ class Graph:
     def __init__(self, vis=False, vis_args={}):
         self.gifs = []
         if vis:
-            self.vis = visdom.Visdom(**vis_args)
+            self.vis = None # visdom.Visdom(**vis_args)
         else:
             self.vis = None
         self.first = True
 
     def graph(self, outfile, model=None):
-        if self.vis is None:
-            return
+        # if self.vis is None:
+        #     return
         fig = Figure()
         canvas = FigureCanvas(fig)
         ax = fig.gca()
@@ -65,11 +65,11 @@ class Graph:
         # plt.savefig(outfile)
         ax.set_title(outfile)
         im = to_fig(canvas)
-        if self.first:
-            self.vis.close(win="Progress")
-        self.vis.image(
-            im.transpose(2, 0, 1), win="Progress", opts=dict(store_history=True)
-        )
+        # if self.first:
+        #     self.vis.close(win="Progress")
+        # self.vis.image(
+        #     im.transpose(2, 0, 1), win="Progress", opts=dict(store_history=True)
+        # )
         self.first = False
 
 
