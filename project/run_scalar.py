@@ -56,49 +56,53 @@ class Linear(jtorch.Module):
         return y
 
 
-model = Network()
-data = DATASET
-losses = []
-for epoch in range(500):
-    total_loss = 0.0
-    correct = 0
+def main():
+    model = Network()
+    data = DATASET
+    losses = []
+    for epoch in range(500):
+        total_loss = 0.0
+        correct = 0
 
-    # Forward
-    for i in range(data.N):
-        x_1, x_2 = data.X[i]
-        y = data.y[i]
-        x_1 = jtorch.Scalar(x_1)
-        x_2 = jtorch.Scalar(x_2)
-        out = model.forward((x_1, x_2))
+        # Forward
+        for i in range(data.N):
+            x_1, x_2 = data.X[i]
+            y = data.y[i]
+            x_1 = jtorch.Scalar(x_1)
+            x_2 = jtorch.Scalar(x_2)
+            out = model.forward((x_1, x_2))
 
-        if y == 1:
-            prob = out
-            correct += 1 if out.data > 0.5 else 0
-        else:
-            prob = -out + 1.0
-            correct += 1 if out.data < 0.5 else 0
+            if y == 1:
+                prob = out
+                correct += 1 if out.data > 0.5 else 0
+            else:
+                prob = -out + 1.0
+                correct += 1 if out.data < 0.5 else 0
 
-        loss = -prob.log()
-        loss.backward()
-        total_loss += loss.data
+            loss = -prob.log()
+            loss.backward()
+            total_loss += loss.data
 
-    # Update
-    losses.append(total_loss)
-    for p in model.parameters():
-        if p.value.derivative is not None:
-            p.update(
-                jtorch.Scalar(p.value.data - RATE * (p.value.derivative / data.N))
+        # Update
+        losses.append(total_loss)
+        for p in model.parameters():
+            if p.value.derivative is not None:
+                p.update(
+                    jtorch.Scalar(p.value.data - RATE * (p.value.derivative / data.N))
+                )
+
+        # Logging
+        if epoch % 10 == 0:
+            print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
+            im = f"Epoch: {epoch}"
+            data.graph(
+                im,
+                lambda x: model.forward(
+                    (jtorch.Scalar(x[0]), jtorch.Scalar(x[1]))
+                ).data,
             )
+            # plt.plot(losses, c="blue")
+            # data.vis.matplot(plt, win="loss")
 
-    # Logging
-    if epoch % 10 == 0:
-        print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
-        im = f"Epoch: {epoch}"
-        data.graph(
-            im,
-            lambda x: model.forward(
-                (jtorch.Scalar(x[0]), jtorch.Scalar(x[1]))
-            ).data,
-        )
-        # plt.plot(losses, c="blue")
-        # data.vis.matplot(plt, win="loss")
+if __name__ == "__main__":
+    main()
