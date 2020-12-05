@@ -24,9 +24,7 @@ def test_two_args(fn, ts):
     t1, t2 = ts
     t3 = fn[1](t1, t2)
     for ind in t3._tensor.indices():
-        assert (
-            t3[ind] == fn[1](jtorch.Scalar(t1[ind]), jtorch.Scalar(t2[ind])).data
-        )
+        assert t3[ind] == fn[1](jtorch.Scalar(t1[ind]), jtorch.Scalar(t2[ind])).data
 
 
 @given(tensors(backend=FastTensorFunctions))
