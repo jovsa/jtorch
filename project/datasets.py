@@ -25,7 +25,7 @@ class Graph:
     def __init__(self, vis=False, vis_args={}):
         self.gifs = []
         if vis:
-            self.vis = None # visdom.Visdom(**vis_args)
+            self.vis = None  # visdom.Visdom(**vis_args)
         else:
             self.vis = None
         self.first = True
