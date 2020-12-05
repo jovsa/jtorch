@@ -1,4 +1,3 @@
-
 from mnist import MNIST
 import jtorch
 import visdom

@@ -65,9 +65,7 @@ def shaped_tensors(
     values = []
     for i in range(n):
         data = draw(lists(numbers, min_size=td.size, max_size=td.size))
-        values.append(
-            jtorch.Tensor(jtorch.TensorData(data, td.shape), backend=backend)
-        )
+        values.append(jtorch.Tensor(jtorch.TensorData(data, td.shape), backend=backend))
     return values
 
 

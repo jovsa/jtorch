@@ -104,5 +104,6 @@ def main():
             # plt.plot(losses, c="blue")
             # data.vis.matplot(plt, win="loss")
 
+
 if __name__ == "__main__":
     main()

@@ -24,17 +24,8 @@ one_arg = [
     ("mult", lambda a: 5 * a),
     ("div", lambda a: a / 5),
     ("sig", lambda a: a.sigmoid(), lambda a: jtorch.operators.sigmoid(a)),
-    (
-        "log",
-        lambda a: (a + 100000).log(),
-        lambda a: jtorch.operators.log(a + 100000),
-    ),
-    (
-        "exp",
-        lambda a: (a - 100000).exp(),
-        lambda a: jtorch.operators.exp(a - 100000),
-    ),
-
+    ("log", lambda a: (a + 100000).log(), lambda a: jtorch.operators.log(a + 100000),),
+    ("exp", lambda a: (a - 100000).exp(), lambda a: jtorch.operators.exp(a - 100000),),
     ("relu", lambda a: (a + 5.5).relu(), lambda a: jtorch.operators.relu(a + 5.5)),
 ]
 
