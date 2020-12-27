@@ -3,16 +3,28 @@ from hypothesis import given
 from hypothesis.strategies import data
 from .strategies import tensor_data, indices
 import pytest
+from pdb import set_trace
 
 
 @pytest.mark.task2_1
 def test_layout():
     "Test basis properties of layout and strides"
-    data = [0] * 3 * 5
-    tensor_data = jtorch.TensorData(data, (3, 5), (5, 1))
+    rows, cols = 3, 5
+    data = [0] * rows * cols
+    tensor_data = jtorch.TensorData(data, (rows, cols), (5, 1))
 
     assert tensor_data.is_contiguous()
-    assert tensor_data.shape == (3, 5)
+    assert tensor_data.shape == (rows, cols)
+
+    prev = -1
+    seen = set()
+    for i in  range(rows):
+        for j in range(cols):
+            curr_idx = tensor_data.index((i, j))
+            assert curr_idx > prev and curr_idx not in seen
+            prev = curr_idx
+            seen.add(curr_idx)
+
     assert tensor_data.index((1, 0)) == 5
     assert tensor_data.index((1, 2)) == 7
 
