@@ -117,6 +117,22 @@ def shape_broadcast(shape1, shape2):
 
 
 def strides_from_shape(shape):
+    """Calculates strdes of a tensor from shape attibute.
+
+    Notes (jovsa): Strides are the offset translations
+    required to map index of a tensor to a position on
+    a contigious array. These offsets can be calculated
+    by finding the product of shapes except self.
+
+    working example:
+        let shape  = (3, 5, 2)
+        then prod(shape) = 30
+        General algo:
+            1 - [prod(shape)/i for i in shape]
+                ex: [30/3, (30/3)/5, ....]
+            2 - last dim always == 1 since you don't need an offset
+
+    """
     layout = [1]
     offset = 1
     for s in reversed(shape):
