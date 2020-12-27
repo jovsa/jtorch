@@ -176,7 +176,6 @@ class TensorData:
              so that that you can get the 1-D position or the
              N-D location. However, this will grow proposional self.size.
 
-
     """
 
     def __init__(self, storage, shape, strides=None):
