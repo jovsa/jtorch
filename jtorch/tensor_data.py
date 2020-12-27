@@ -142,6 +142,43 @@ def strides_from_shape(shape):
 
 
 class TensorData:
+    """ Contigious data abstraction for a tensor
+
+    Notes (jovsa):
+        The TensorData abstraction is datastore  and a translator.
+        The underlying data is stored as a 1-D array (np.array).
+        This helps with efficient data storage. Furthermore,
+        this abstraction also provides two translations functions:
+        [1] - `index_to_position`: converts a num (N-D)
+        to a 1-D position.
+            - Helpers used: self.strides
+                - you could do it without self.strides, but you would have to
+                redo this calcuation for each dimention. Since this
+                calculation does not change for the lifetime of the tensor,
+                better to do it once and store it.
+
+        then,
+            position = [stride1 * index1 + stride2 * index2 + ... strideN * indexN]
+
+
+
+        [2] - `count`: converts a (1-D) position to a N-D location.
+            use mod operator from the -1 dim to the 0th dim to get
+            location.
+
+
+        With this capability you can use this 1-D array to store,
+        set and get arbitrary N-D tensors.
+
+        Further commentary:
+             - A more sloppy way to write this class without the
+             two translation functions would be to store 2 maps
+             so that that you can get the 1-D position or the
+             N-D location. However, this will grow proposional self.size.
+
+
+    """
+
     def __init__(self, storage, shape, strides=None):
         if isinstance(storage, ndarray):
             self._storage = storage
