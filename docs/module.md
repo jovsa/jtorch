@@ -1,12 +1,11 @@
-# Operators & Primatives
+# Module
 
-Contains implimentatino of basic mathematical functions and operators. These are used
-as compostable units thoughout jtorch.
+Contains implementation of all operators. These are used as building blocks units elsewhere.
 
 * [Code location](https://github.com/jovsa/jtorch/blob/main/jtorch/operators.py)
 * [Unit tests](https://github.com/jovsa/jtorch/blob/main/tests/tests_operators.py)
 
-## Mathematical Primatives
+## Mathematical Operators
 
 * mul:
   * `f(x, y) = x * y`
@@ -31,7 +30,7 @@ as compostable units thoughout jtorch.
   * `f(x, c) = c if x is greater than 0 else 0`
 * log
   * `f(x) = log(x)`
-  * This is the natural logorithm
+  * This is the natural logarithm
 * log_back
   * `f(x, c) = c / (x + epsilon)`
   * Formulated as `c * dy/dx{log(x)}`
@@ -50,13 +49,14 @@ as compostable units thoughout jtorch.
 
 ## Listwise Operators
 
-The following opertors are written to operate on lists. This fomulation extends nicely when we want to apply them to tensors.
+The following operators are written to operate on lists. This formulation extends nicely when
+we want to apply them to tensors.
 
 * map
   * Takes as list and applies a `fn` to each element. Returns a new list.
   * wikipedia [page](https://en.wikipedia.org/wiki/Map_(higher-order_function))
 * reduce
-  * Takes a list of elements. Cumalatively applies a `fn` to each element. Return a single value.
+  * Takes a list of elements. Cumulatively applies a `fn` to each element. Return a single value.
 * zipWith
   * Takes two equally sized lists. Produces a new list by applying a `fn` to each pair of elements.
   * wikipedia [page](https://en.wikipedia.org/wiki/Map_(higher-order_function))
@@ -64,7 +64,8 @@ The following opertors are written to operate on lists. This fomulation extends 
 
 ## Composite Operators
 
-These operators use the mathematical primatives and listwise operators. These are mainly used to tests the listwise operators.
+These operators use the mathematical and listwise operators as building blocks.
+These are mainly used to tests the listwise operators.
 
 * negList
   * Use the `map` to apply `neg` to each element in a list.

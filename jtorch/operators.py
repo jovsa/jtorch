@@ -40,18 +40,7 @@ def max(x: float, y: float) -> float:
 
 
 def sigmoid(x: float) -> float:
-    r"""
-    :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`
-
-    (See `<https://en.wikipedia.org/wiki/Sigmoid_function>`_ .)
-
-    Calculate as
-
-    :math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}` if x >=0 else :math:`\frac{e^x}{(1.0 + e^{x})}`
-
-    for stability.
-
-    """
+    ":math:`f(x) =  \frac{1.0}{(1.0 + e^{-x})}`"
     if x >= 0:
         return 1.0 / (1.0 + math.exp(-x))
     else:
@@ -59,11 +48,7 @@ def sigmoid(x: float) -> float:
 
 
 def relu(x: float) -> float:
-    """
-    :math:`f(x) = x if x is greater than 0, else 0
-
-    (See `<https://en.wikipedia.org/wiki/Rectifier_(neural_networks)>`_ .)
-    """
+    ":math:`f(x) = x if x is greater than 0, else 0"
     return x if x > 0 else 0.0
 
 
@@ -99,11 +84,6 @@ def map(fn) -> Callable:
     """
     Higher-order map.
 
-    .. image:: figs/Ops/maplist.png
-
-
-    See `<https://en.wikipedia.org/wiki/Map_(higher-order_function)>`_
-
     Args:
         fn (one-arg function): Function from one value to one value.
 
@@ -128,11 +108,7 @@ def negList(ls: List) -> List:
 
 def zipWith(fn) -> Callable:
     """
-    Higher-order zipwith (or map2).
-
-    .. image:: figs/Ops/ziplist.png
-
-    See `<https://en.wikipedia.org/wiki/Map_(higher-order_function)>`_
+    Higher-order zipwith.
 
     Args:
         fn (two-arg function): combine two values
@@ -152,17 +128,14 @@ def zipWith(fn) -> Callable:
     return _zipWith
 
 
-def addLists(ls1: List, ls2: List):
+def addLists(ls1: List, ls2: List) -> List:
     "Add the elements of `ls1` and `ls2` using :func:`zipWith` and :func:`add`"
     return zipWith(add)(ls1, ls2)
 
 
-def reduce(fn: Callable, start: float):
+def reduce(fn: Callable, start: float) -> Callable:
     r"""
     Higher-order reduce.
-
-    .. image:: figs/Ops/reducelist.png
-
 
     Args:
         fn (two-arg function): combine two values
@@ -184,14 +157,14 @@ def reduce(fn: Callable, start: float):
     return _reduce
 
 
-def sum(ls: List):
+def sum(ls: List) -> List:
     """
     Sum up a list using :func:`reduce` and :func:`add`.
     """
     return reduce(add, 0.0)(ls)
 
 
-def prod(ls: List):
+def prod(ls: List) -> List:
     """
     Product of a list using :func:`reduce` and :func:`mul`.
     """

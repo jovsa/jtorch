@@ -1,4 +1,5 @@
 # jtorch
+
 An [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation) engine.
 
 The design is inspired by [minitorch](https://minitorch.github.io/)
@@ -7,18 +8,18 @@ and [pytorch](https://pytorch.org/).
 This is mainly for personal learning purposes and will not be actively maintained.
 
 ---
+
 ## Documentation Guide
 
-### Fundementals
+### Foundations
 
-* [Operators & Primatives](/docs/operators_primatives.md)
-  * [mathematical primative](/docs/operators_primatives.md#mathematical-primatives)
-  * [listwise operators](/docs/operators_primatives.md#listwise-operators)
-  * [composite operators](/docs/operators_primatives.md#composite-operators)
-* Functional
+* [Operators](/docs/operators.md)
+  * [mathematical operators](/docs/operators.md#mathematical-operators)
+  * [listwise operators](/docs/operators.md#listwise-operators)
+  * [composite operators](/docs/operators.md#composite-operators)
 * Modules
 
-### Autodiff
+### Automatic Differentiation
 
 * Numerical Derivatives
 * Scalars
@@ -30,14 +31,15 @@ This is mainly for personal learning purposes and will not be actively maintaine
 * Indexing
 * Broadcasting
 * Operations
-* Gradiants and Autograd
-
+* Gradients and Automatic Differentiation
 
 ### Efficiency
-> Comming soon
+
+> Coming soon
 
 ### Networks
-> Comming soon
+
+> Coming soon
 
 ### Housekeeping
 
