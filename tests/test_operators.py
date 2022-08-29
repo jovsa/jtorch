@@ -52,16 +52,6 @@ def test_distribute(x, y, z):
     )
 
 
-@pytest.mark.task0_2
-def test_other():
-    """
-    Write a test that ensures some other property holds for your functions.
-    """
-    None
-    # ASSIGN0.2
-    # END ASSIGN0.2
-
-
 # HIGHER ORDER
 
 
