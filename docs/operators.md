@@ -1,6 +1,6 @@
 # Operators
 
-Contains implementation of all operators. These are used as compostable units elsewhere.
+Contains implementation of all operators. These are used as building blocks units elsewhere.
 
 * [Code location](https://github.com/jovsa/jtorch/blob/main/jtorch/operators.py)
 * [Unit tests](https://github.com/jovsa/jtorch/blob/main/tests/tests_operators.py)
@@ -49,7 +49,8 @@ Contains implementation of all operators. These are used as compostable units el
 
 ## Listwise Operators
 
-The following operators are written to operate on lists. This formulation extends nicely when we want to apply them to tensors.
+The following operators are written to operate on lists. This formulation extends nicely when
+we want to apply them to tensors.
 
 * map
   * Takes as list and applies a `fn` to each element. Returns a new list.
@@ -63,7 +64,8 @@ The following operators are written to operate on lists. This formulation extend
 
 ## Composite Operators
 
-These operators use the mathematical primatives and listwise operators. These are mainly used to tests the listwise operators.
+These operators use the mathematical and listwise operators as building blocks.
+These are mainly used to tests the listwise operators.
 
 * negList
   * Use the `map` to apply `neg` to each element in a list.

@@ -1,6 +1,4 @@
-## Task 0.4
-## Modules
-
+## Module
 
 class Module:
     """
@@ -22,19 +20,15 @@ class Module:
 
     def train(self):
         "Set the mode of this module and all descendent modules to `train`."
-        # ASSIGN0.4
         for m in self.modules():
             m.train()
         self.mode = "train"
-        # END ASSIGN0.4
 
     def eval(self):
         "Set the mode of this module and all descendent modules to `eval`."
-        # ASSIGN0.4
         for m in self.modules():
             m.eval()
         self.mode = "eval"
-        # END ASSIGN0.4
 
     def named_parameters(self):
         """
@@ -44,7 +38,6 @@ class Module:
         Returns:
             dict: Each name (key) and :class:`Parameter` (value) under this module.
         """
-        # ASSIGN0.4
 
         # Collect our parameters and give them a name.
         parameters = {}
@@ -56,7 +49,6 @@ class Module:
             for k, v in m.named_parameters().items():
                 parameters[f"{mod_name}.{k}"] = v
         return parameters
-        # END ASSIGN0.4
 
     def parameters(self):
         return self.named_parameters().values()
