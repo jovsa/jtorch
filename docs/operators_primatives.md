@@ -3,8 +3,8 @@
 Contains implimentatino of basic mathematical functions and operators. These are used
 as compostable units thoughout jtorch.
 
-[Code location](https://github.com/jovsa/jtorch/blob/main/jtorch/operators.py)
-[Unit tests](https://github.com/jovsa/jtorch/blob/main/tests/tests_operators.py)
+* [Code location](https://github.com/jovsa/jtorch/blob/main/jtorch/operators.py)
+* [Unit tests](https://github.com/jovsa/jtorch/blob/main/tests/tests_operators.py)
 
 ## Mathematical Primatives
 

@@ -18,7 +18,7 @@ def test_layout():
 
     prev = -1
     seen = set()
-    for i in  range(rows):
+    for i in range(rows):
         for j in range(cols):
             curr_idx = tensor_data.index((i, j))
             assert curr_idx > prev and curr_idx not in seen

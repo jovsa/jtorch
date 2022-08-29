@@ -13,7 +13,13 @@ small_floats = floats(min_value=-100, max_value=100)
 
 @composite
 def vals(draw, size, number):
-    pts = draw(lists(number, min_size=size, max_size=size,))
+    pts = draw(
+        lists(
+            number,
+            min_size=size,
+            max_size=size,
+        )
+    )
     return jtorch.tensor(pts)
 
 
