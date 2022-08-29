@@ -1,11 +1,12 @@
 # jtorch
-An autograd engine and a neural net library for personal exploration and learning.
+An [automatic differentiation](https://en.wikipedia.org/wiki/Automatic_differentiation) engine.
+
 The design is inspired by [minitorch](https://minitorch.github.io/)
 and [pytorch](https://pytorch.org/).
 
+This is mainly for personal learning purposes and will not be actively maintained.
 
 ---
-
 ## Documentation Guide
 
 ### Fundementals
