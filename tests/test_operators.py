@@ -1,5 +1,5 @@
-import jtorch
 from jtorch import operators
+import numpy as np
 from hypothesis import given
 from hypothesis.strategies import lists
 from .strategies import small_floats, assert_close
@@ -12,6 +12,10 @@ def test_add_and_mul(x, y):
     assert_close(operators.mul(x, y), x * y)
     assert_close(operators.add(x, y), x + y)
     assert_close(operators.neg(x), -x)
+    assert_close(operators.id(x), x)
+    assert_close(operators.add(x, y), x + y)
+    assert_close(operators.max(x, y), max(x, y))
+    assert_close(operators.sigmoid(x), 1 / (1 + np.exp(-x)))
 
 
 @pytest.mark.task0_1
@@ -23,7 +27,6 @@ def test_relu(a):
         assert operators.relu(a) == 0.0
 
 
-## Task 0.2
 ## Property Testing
 
 
@@ -71,11 +74,9 @@ def test_property(ls1, ls2):
     Write a test that ensures that the sum of `ls1` plus the sum of `ls2`
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
-    # ASSIGN0.3
     a = operators.sum(ls1) + operators.sum(ls2)
     b = operators.sum(operators.addLists(ls1, ls2))
     assert_close(a, b)
-    # END ASSIGN0.3
 
 
 @pytest.mark.task0_3
