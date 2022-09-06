@@ -73,7 +73,6 @@ class Variable:
         return x
 
 
-
 class Context:
     """
     Context class is used by.

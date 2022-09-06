@@ -142,7 +142,7 @@ def strides_from_shape(shape):
 
 
 class TensorData:
-    """ Contigious data abstraction for a tensor
+    """Contigious data abstraction for a tensor
 
     Notes (jovsa):
         The TensorData abstraction is datastore  and a translator.
@@ -204,7 +204,7 @@ class TensorData:
             self._storage = numba.cuda.to_device(self._storage)
 
     def is_contiguous(self):
-        "Check that the layout is contiguous, i.e. outer dimensions have bigger strides than inner dimensions. "
+        "Check that the layout is contiguous, i.e. outer dimensions have bigger strides than inner dimensions."
         last = 1e9
         for stride in self._strides:
             if stride > last:

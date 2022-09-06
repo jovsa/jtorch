@@ -2,6 +2,8 @@ import jtorch
 import pytest
 
 VAL = 40
+VAL_A = 50
+VAL_B = 100
 
 
 class Module1(jtorch.Module):
@@ -10,10 +12,6 @@ class Module1(jtorch.Module):
         self.module_a = Module2(5)
         self.module_b = Module2(10)
         self.parameter_a = jtorch.Parameter(VAL)
-
-
-VAL_A = 50
-VAL_B = 100
 
 
 class Module2(jtorch.Module):

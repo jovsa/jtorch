@@ -163,7 +163,7 @@ class Tensor(Variable):
         return self.derivative
 
     def expand(self, other):
-        ""
+        """"""
         if self.shape == other.shape:
             return other
 
