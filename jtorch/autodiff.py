@@ -48,7 +48,6 @@ class Variable:
     def derivative(self):
         return self._derivative
 
-    ## IGNORE
     def __hash__(self):
         return hash(self.name)
 
@@ -73,7 +72,6 @@ class Variable:
     def expand(self, x):
         return x
 
-    ## IGNORE
 
 
 class Context:
@@ -179,13 +177,11 @@ class FunctionBase:
             (see `is_constant` to remove unneeded variables)
 
         """
-        # ASSIGN1.3
         d_inputs = cls.backward(ctx, d_output)
         d_inputs = wrap_tuple(d_inputs)
         for inp, d_input in zip(inputs, d_inputs):
             if not is_constant(inp):
                 yield VariableWithDeriv(inp, d_input)
-        # END ASSIGN1.3
 
 
 def is_leaf(val):
@@ -207,7 +203,6 @@ def backpropagate(final_variable_with_deriv):
        final_variable_with_deriv (:class:`VariableWithDeriv`): The final variable
            and its derivative that we want to propagate backward to the leaves.
     """
-    # ASSIGN1.4
     queue = [final_variable_with_deriv]
     while queue:
         cur = queue[0]
@@ -224,4 +219,3 @@ def backpropagate(final_variable_with_deriv):
                 #         seen = True
                 # if not seen:
                 queue.append(prev)
-    # END ASSIGN1.4

@@ -17,7 +17,7 @@ This is mainly for personal learning purposes and will not be actively maintaine
   * [mathematical operators](/docs/operators.md#mathematical-operators)
   * [listwise operators](/docs/operators.md#listwise-operators)
   * [composite operators](/docs/operators.md#composite-operators)
-* Modules
+* [Containers](/docs/containers.md)
 
 ### Automatic Differentiation
 

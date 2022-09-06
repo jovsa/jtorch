@@ -26,7 +26,6 @@ class Module2(jtorch.Module):
             self.add_parameter(f"extra_parameter_{i}", None)
 
 
-@pytest.mark.task0_4
 def test_module():
     "Check the properties of a single module"
     module = Module2()
@@ -46,7 +45,6 @@ def test_module():
     assert named_parameters["extra_parameter_0"].value is None
 
 
-@pytest.mark.task0_4
 def test_stacked_module():
     "Check the properties of a stacked module"
     module = Module1()
@@ -96,7 +94,6 @@ class ModuleA4(jtorch.Module):
         self.p3 = jtorch.Parameter(15)
 
 
-@pytest.mark.task0_4
 def test_stacked_module2():
     np = ModuleA1().named_parameters()
     assert np["p1"].value == 5
