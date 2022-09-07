@@ -90,32 +90,19 @@ class Module:
         return self.forward(*args, **kwargs)
 
     def forward(self):
-        assert False, "Not Implemented"
+        raise NotImplementedError
 
     def __repr__(self):
-        def _addindent(s_, numSpaces):
-            s = s_.split("\n")
-            if len(s) == 1:
-                return s_
-            first = s.pop(0)
-            s = [(numSpaces * " ") + line for line in s]
-            s = "\n".join(s)
-            s = first + "\n" + s
-            return s
-
         child_lines = []
 
         for key, module in self._modules.items():
             mod_str = repr(module)
-            mod_str = _addindent(mod_str, 2)
             child_lines.append("(" + key + "): " + mod_str)
         lines = child_lines
 
         main_str = self.__class__.__name__ + "("
         if lines:
-            # simple one-liner info, which most builtin Modules will use
             main_str += "\n  " + "\n  ".join(lines) + "\n"
-
         main_str += ")"
         return main_str
 
@@ -124,7 +111,7 @@ class Parameter:
     """
     A Parameter is a special container stored in a :class:`Module`.
 
-    It is designed to hold a :class:`Variable`, but we allow it to hold
+    It is designed to hold a :class:`Variable`, but it is allow it to hold
     any value for testing.
     """
 

@@ -1,5 +1,7 @@
 
 class Module
+  class Parameter -> Designed to hold tensor, but can hold any value for testing.
+
 
 class Variable
   class Context
