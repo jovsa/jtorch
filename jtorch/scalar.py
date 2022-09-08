@@ -126,7 +126,7 @@ class ScalarFunction(FunctionBase):
             number : The computation of the function :math:`f`
 
         """
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @staticmethod
     def backward(ctx, d_out):
@@ -137,7 +137,7 @@ class ScalarFunction(FunctionBase):
         Returns:
             numbers : The computation of the derivative function :math:`f'_{x_i}` for each input :math:`x_i` times `d_out`.
         """
-        raise NotImplementedError()
+        raise NotImplementedError
 
     # checks.
     variable = Scalar

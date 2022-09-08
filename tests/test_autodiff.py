@@ -2,7 +2,6 @@ import jtorch
 import pytest
 from jtorch import History, Variable
 
-
 class Temp(jtorch.FunctionBase):
     "Implements additions"
 
@@ -20,7 +19,6 @@ class Temp2(jtorch.FunctionBase):
         return d_output, x * d_output
 
 
-@pytest.mark.task1_3
 def test_chain_rule():
     constant = jtorch.Variable(None)
     for variable_with_deriv in Temp.chain_rule(
@@ -53,7 +51,6 @@ def test_chain_rule():
         assert variable_with_deriv.deriv == 5
 
 
-@pytest.mark.task1_4
 def test_backprop():
     var = Variable(History())
     var2 = Variable(History(Temp, None, [0, var]))

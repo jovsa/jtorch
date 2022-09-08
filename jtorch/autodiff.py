@@ -136,7 +136,7 @@ class FunctionBase:
 
     @staticmethod
     def variable(raw, history):
-        raise NotImplementedError()
+        raise NotImplementedError
 
     @classmethod
     def apply(cls, *vals):
