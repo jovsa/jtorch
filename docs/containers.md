@@ -4,9 +4,10 @@ class Module
 
 
 class Variable
+  def chain_rule
   class VariableWithDeriv
-  class Context
   class History
+    class Context
   class FunctionBase
 
   def is_leaf

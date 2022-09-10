@@ -1,3 +1,4 @@
+from multiprocessing.spawn import import_main_path
 import uuid
 
 
@@ -204,17 +205,10 @@ def backpropagate(final_variable_with_deriv):
     """
     queue = [final_variable_with_deriv]
     while queue:
-        cur = queue[0]
+        cur = queue.pop(0)
         var = cur.variable
-        queue = queue[1:]
         if is_leaf(var):
             cur.variable._add_deriv(cur.deriv)
         else:
             for prev in var.history.backprop_step(cur.deriv):
-                # seen = False
-                # for s in queue:
-                #     if s.variable.name == prev.variable.name:
-                #         s.deriv += prev.deriv
-                #         seen = True
-                # if not seen:
                 queue.append(prev)

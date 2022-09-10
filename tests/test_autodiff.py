@@ -2,6 +2,7 @@ import jtorch
 import pytest
 from jtorch import History, Variable
 
+
 class Temp(jtorch.FunctionBase):
     "Implements additions"
 
@@ -20,12 +21,15 @@ class Temp2(jtorch.FunctionBase):
 
 
 def test_chain_rule():
+
+    # case: only constants through chain rule.
     constant = jtorch.Variable(None)
     for variable_with_deriv in Temp.chain_rule(
         ctx=None, inputs=[constant, constant], d_output=5
     ):
         assert False
 
+    # case: constant and variables mix
     var = jtorch.Variable(History())
     constant = jtorch.Variable(None)
     for variable_with_deriv in Temp.chain_rule(
@@ -34,6 +38,7 @@ def test_chain_rule():
         assert variable_with_deriv.variable.name == var.name
         assert variable_with_deriv.deriv == 5
 
+    # case: save_for_backward is correctly used
     ctx = jtorch.Context()
     ctx.save_for_backward(10)
     for variable_with_deriv in Temp2.chain_rule(
@@ -42,6 +47,7 @@ def test_chain_rule():
         assert variable_with_deriv.variable.name == var.name
         assert variable_with_deriv.deriv == 5 * 10
 
+    # case: right output from backwards is used
     ctx = jtorch.Context()
     ctx.save_for_backward(10)
     for variable_with_deriv in Temp2.chain_rule(
@@ -52,6 +58,7 @@ def test_chain_rule():
 
 
 def test_backprop():
+
     var = Variable(History())
     var2 = Variable(History(Temp, None, [0, var]))
     var2.backward(5)
