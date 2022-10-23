@@ -20,6 +20,16 @@ Also some usefull functions:
 
 ## Tensor
 
+* A multi-dimentional array of arbitrary length. This is the main container for storing data. It is a subclass of `Variable`.
+* Designed to be use native python lists as the underlying data structure.
+* Assumes the data passed in is of type `TensorData`.
+
+### TensorData
+* A wrapper around a python list. This is the underlying data structure for `Tensor`.
+* Given data, calculates the strides. Strides is a tuple that provides the mapping from user indexing to the position in the 1-D storage
+* Given data, calculates the shapes. Shapes is a tuple that provides the shape of the tensor.
+
+
 ```
 Tensor <- Variable
   Function
