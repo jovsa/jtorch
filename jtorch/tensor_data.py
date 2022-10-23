@@ -117,7 +117,7 @@ def shape_broadcast(shape1, shape2):
 
 
 def strides_from_shape(shape):
-    """Calculates strdes of a tensor from shape attibute.
+    """Calculates strides of a tensor from shape attribute.
 
     Notes (jovsa): Strides are the offset translations
     required to map index of a tensor to a position on
